@@ -1,0 +1,443 @@
+
+interface paymentsHydra {
+    houseId: string,
+    type: string,
+    amount: string,
+};
+
+const data: paymentsHydra[] = 
+[
+    {
+      "type": "reembolso",
+      "houseId": "71.1",
+      "amount": "0"
+    },
+    {
+      "type": "house",
+      "houseId": "3",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "17",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "15",
+      "amount": "1397"
+    },
+    {
+      "type": "house",
+      "houseId": "61",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "7",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "77",
+      "amount": "1011"
+    },
+    {
+      "type": "house",
+      "houseId": "33",
+      "amount": "315"
+    },
+    {
+      "type": "house",
+      "houseId": "44",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "80",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "34",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "38",
+      "amount": "480"
+    },
+    {
+      "type": "house",
+      "houseId": "31",
+      "amount": "385"
+    },
+    {
+      "type": "house",
+      "houseId": "27",
+      "amount": "898"
+    },
+    {
+      "type": "house",
+      "houseId": "40",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "36",
+      "amount": "502"
+    },
+    {
+      "type": "house",
+      "houseId": "81",
+      "amount": "385"
+    },
+    {
+      "type": "house",
+      "houseId": "28",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "69",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "88",
+      "amount": "314"
+    },
+    {
+      "type": "house",
+      "houseId": "30",
+      "amount": "625"
+    },
+    {
+      "type": "house",
+      "houseId": "64",
+      "amount": "405"
+    },
+    {
+      "type": "house",
+      "houseId": "86",
+      "amount": "382"
+    },
+    {
+      "type": "house",
+      "houseId": "22",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "57",
+      "amount": "458"
+    },
+    {
+      "type": "house",
+      "houseId": "47",
+      "amount": "282"
+    },
+    {
+      "type": "house",
+      "houseId": "25",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "46",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "5",
+      "amount": "529"
+    },
+    {
+      "type": "house",
+      "houseId": "43",
+      "amount": "502"
+    },
+    {
+      "type": "house",
+      "houseId": "37",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "82",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "18",
+      "amount": "298"
+    },
+    {
+      "type": "house",
+      "houseId": "8",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "35",
+      "amount": "298"
+    },
+    {
+      "type": "house",
+      "houseId": "71",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "9",
+      "amount": "502"
+    },
+    {
+      "type": "house",
+      "houseId": "66",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "72",
+      "amount": "385"
+    },
+    {
+      "type": "house",
+      "houseId": "20",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "14",
+      "amount": "553"
+    },
+    {
+      "type": "house",
+      "houseId": "74",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "39",
+      "amount": "385"
+    },
+    {
+      "type": "house",
+      "houseId": "42",
+      "amount": "314"
+    },
+    {
+      "type": "house",
+      "houseId": "23",
+      "amount": "282"
+    },
+    {
+      "type": "house",
+      "houseId": "58",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "12",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "56",
+      "amount": "282"
+    },
+    {
+      "type": "house",
+      "houseId": "52",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "78",
+      "amount": "298"
+    },
+    {
+      "type": "house",
+      "houseId": "71",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "90",
+      "amount": "512"
+    },
+    {
+      "type": "house",
+      "houseId": "73",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "50",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "48",
+      "amount": "502"
+    },
+    {
+      "type": "house",
+      "houseId": "6",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "4",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "24",
+      "amount": "480"
+    },
+    {
+      "type": "house",
+      "houseId": "49",
+      "amount": "298"
+    },
+    {
+      "type": "house",
+      "houseId": "54",
+      "amount": "314"
+    },
+    {
+      "type": "house",
+      "houseId": "70",
+      "amount": "458"
+    },
+    {
+      "type": "house",
+      "houseId": "63",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "51",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "67",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "45",
+      "amount": "529"
+    },
+    {
+      "type": "house",
+      "houseId": "75",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "59",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "32",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "55",
+      "amount": "314"
+    },
+    {
+      "type": "house",
+      "houseId": "29",
+      "amount": "314"
+    },
+    {
+      "type": "house",
+      "houseId": "11",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "60",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "10",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "2",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "62",
+      "amount": "348"
+    },
+    {
+      "type": "house",
+      "houseId": "13",
+      "amount": "405"
+    },
+    {
+      "type": "house",
+      "houseId": "65",
+      "amount": "435"
+    },
+    {
+      "type": "house",
+      "houseId": "53",
+      "amount": "405"
+    },
+    {
+      "type": "house",
+      "houseId": "80",
+      "amount": "298"
+    },
+    {
+      "type": "house",
+      "houseId": "87",
+      "amount": "480"
+    },
+    {
+      "type": "house",
+      "houseId": "26",
+      "amount": "366"
+    },
+    {
+      "type": "house",
+      "houseId": "85",
+      "amount": "480"
+    },
+    {
+      "type": "house",
+      "houseId": "16",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "41",
+      "amount": "267"
+    },
+    {
+      "type": "house",
+      "houseId": "21",
+      "amount": "330"
+    },
+    {
+      "type": "house",
+      "houseId": "83",
+      "amount": "405"
+    }
+  ]
+;
+
+export const paymentsHydraSep = data;

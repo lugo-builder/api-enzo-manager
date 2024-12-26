@@ -1,22 +1,3 @@
-
-interface paymentsHydra {
-    houseId: string,
-    ordinaryPayment: string,
-    waterPayment: string,
-    sanctionPayment: string,
-    sanctionDescription: string,
-    total: string,
-    paymentMonth: string,
-    year: string,
-    token?: string,
-    comments?:string,
-    waterPaymentDelay?:string,
-    ordinaryPaymentDelay?:string,
-    sanctionPaymentDelay?:string,
-    sanctionPaymentDelayDescription?:string
-};
-
-const data: paymentsHydra[] = 
 [
     {
         "houseId": "46",
@@ -1324,6 +1305,3 @@ const data: paymentsHydra[] =
         "comments": ""
     }
 ]
-;
-
-export const paymentsHydraAugust = data;

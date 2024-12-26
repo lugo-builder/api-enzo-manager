@@ -1,0 +1,13 @@
+{
+        "houseId": "1",
+        "previousWaterMetering": "331",
+        "currentWaterMetering": "342",
+        "metersConsumed": "11",
+        "differenceOfUse": "54",
+        "total": "329",
+        "condo": "Shimul",
+        "caKey": "shimulac",
+        "periodOfUse": "Septiembre",
+        "paymentMonth": "Noviembre",
+        "year": "2024"
+      }

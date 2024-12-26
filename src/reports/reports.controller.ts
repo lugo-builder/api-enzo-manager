@@ -37,8 +37,16 @@ export class ReportsController {
   async generateReport(@Query('name') name: string) {
     const data = { name };
     return await this.reportsService.generatePdf();
-    //pdfDoc.info.Title = 'Factura';
-    
+  }
 
+  @Get('filter')
+  async filterReport() {
+    return await this.reportsService.filterData();
+  }
+
+  @Get('shimul')
+  async generateReportShimul(@Query('name') name: string) {
+    const data = { name };
+    return await this.reportsService.generateRecibosShimul();
   }
 }

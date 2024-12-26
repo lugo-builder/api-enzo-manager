@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { paymentHydraReport } from './templates/hydra/proof.payment.report';
-import { paymentsHydraAugust } from './templates/hydra/payments/payments-august-2024';
+import { waterShimulReport } from './templates/shimul/water.report.template';
+import { currentPaymentsHydra } from './templates/hydra/payments/payment-october-disorder-2024';
+import { recibosHydra } from './templates/hydra/payments/recibos-hydra-report';
+import { reportShimul } from './templates/shimul/periods/shimul-period-october';
+const fs = require('fs');
+import * as path from 'path';
 
 const fonts = {
   Roboto: {
@@ -40,25 +45,118 @@ generatePdf() {
     const PdfPrinter = require('pdfmake');
     const printer = new PdfPrinter(fonts);
     const fs = require('fs');
-    paymentsHydraAugust.forEach(houseData => {
-      houseData.token = this.generateFolio(houseData);
-      let pdfDoc = printer.createPdfKitDocument(paymentHydraReport(houseData));
-      pdfDoc.pipe(fs.createWriteStream(`pago-interno-hydra-${houseData.houseId}`));
-      pdfDoc.end();
+    //TODO: Generar un arreglo con el reporte final
+    recibosHydra.forEach(houseData => {
+      
+      if(houseData.type !== `extrapay` && houseData.type !== `mora`){
+        houseData.color = houseData.type === 'redemption' ? 'red' : 'black';
+        houseData.token = this.generateFolio(houseData);
+        let pdfDoc = printer.createPdfKitDocument(paymentHydraReport(houseData));
+        let fileName = `pago-interno-${houseData.paymentMonth.toLowerCase()}-hydra-${houseData.houseId}.pdf`;
+        pdfDoc.pipe(fs.createWriteStream(fileName));
+        pdfDoc.end();
+      }
     });
     console.log('Final GeneratePDF');
+    
     return 'This action generate pdf';
   }
 
   generateFolio(data){
-    const Cryptr = require('cryptr');
-  const cryptr = new Cryptr(`colonoshydraac` , { encoding: 'base64', pbkdf2Iterations: 10000, saltLength: 10 });
+  const Cryptr = require('cryptr');
+  //`colonoshydraac`
+  const cryptr = new Cryptr(data.caKey , { encoding: 'base64', pbkdf2Iterations: 10000, saltLength: 10 });
 
-const encryptedString = cryptr.encrypt(`Hydra${data.houseId}-${data.paymentMonth}-${data.year}`);
+const encryptedString = cryptr.encrypt(`${data.condo}${data.houseId}-${data.paymentMonth}-${data.year}`);
 const decryptedString = cryptr.decrypt(encryptedString);
 
 console.log(encryptedString); 
 console.log(decryptedString); 
 return encryptedString;
+  }
+
+
+  filterData() {
+    console.log('Filter');
+    
+    // Ordenar el JSON por houseId de forma descendente
+  const sortedPayments = currentPaymentsHydra.sort((a, b) => {
+  // Convertimos houseId a números flotantes para asegurar una comparación numérica correcta
+  const houseIdA = parseFloat(a.houseId);
+  const houseIdB = parseFloat(b.houseId);
+
+  return houseIdA - houseIdB ; // Orden Ascendente
+});
+
+console.log(sortedPayments);
+
+const jsonContent = JSON.stringify(sortedPayments, null, 2); // `null, 2` para formatear con indentación de 2 espacios
+
+// Escribir el resultado en un archivo llamado 'sorted_payments.json'
+fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
+    if (err) {
+        console.error('Error al escribir el archivo:', err);
+    } else {
+        console.log('Archivo JSON ordenado guardado como sorted_payments.json');
+    }
+});
+
+    console.log('Final filter');
+    return 'This action filter report';
+  }
+
+  generateRecibosShimul() {
+    console.log('Generar reportes shimul');
+    
+    const PdfPrinter = require('pdfmake');
+    const printer = new PdfPrinter(fonts);
+    const fs = require('fs');
+
+
+
+    //TODO: Generar un arreglo con el reporte final
+    reportShimul.forEach(houseData => {
+      
+        //houseData.color = houseData.type === 'redemption' ? 'red' : 'black';
+        houseData.token = this.generateFolio(houseData);
+        
+        let fileName = `${houseData.houseId}_${houseData.condo.toLowerCase()}_consumo_${houseData.periodOfUse.toLocaleLowerCase()}_${houseData.year}.pdf`;
+
+        //Generar carpetas
+        let houseNumber = parseInt(houseData.houseId);
+        let casaName = `00`;
+        if(houseNumber < 10){
+          casaName = `0${houseData.houseId}`;
+        }else{
+          casaName = houseData.houseId;
+        }
+         const folderPath = `CASA ${casaName}/12.- DICIEMBRE 2024`;
+
+         const outputDir = path.resolve(__dirname, '..', folderPath);
+          const outputFilePath = path.join(outputDir, fileName);
+
+          if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+          }
+          let pdfDoc = printer.createPdfKitDocument(waterShimulReport(houseData));
+
+          const writeStream = fs.createWriteStream(outputFilePath);
+        pdfDoc.pipe(writeStream);
+        pdfDoc.end();
+
+        writeStream.on('finish', () => {
+          console.log('PDF generated and saved to:', outputFilePath);
+        });
+        
+        writeStream.on('error', (error) => {
+          console.error('Error while generating the PDF:', error);
+        });
+
+
+      
+    });
+    console.log('Final GeneratePDF');
+    
+    return 'This action generate pdf';
   }
 }
