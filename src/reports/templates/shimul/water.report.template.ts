@@ -1,7 +1,7 @@
 import { TDocumentDefinitions, Content, StyleDictionary } from 'pdfmake/interfaces';
 
 const logo: Content = {
-  image: 'src/assets/Tori.jpg',
+  image: 'src/assets/mv_logo.png',
   width: 70,
   margin:[30,10]
 };
@@ -76,30 +76,30 @@ export const waterShimulReport = (data): TDocumentDefinitions => {
           logo,
           // Datos de la asociación civil columna 1
           {
-            text: 'CONDOMINO RINCONADA XANIC A.C.',
+            text: 'CONDOMINO RINCONADA SHIMUL A.C.',
             style: 'subheader',
             alignment: 'left',
             color: '#000000'
           },
           {
-                    text: 'Rinconada Xanic\nMarqués de Altamira\nCP 76240\nFraccionamiento Rincones del Marqués',
+                    text: 'Rinconada Shimul\nMarqués de Altamira 4\nCP 76240\nFraccionamiento Rincones del Marqués',
                     style: 'address',
                     alignment: 'left',
                     color: '#000000'
           },
           {
-            qr: `Condominio Rinconada Xanic A.C.\nXanic ${data.houseId}\nConsumo de agua\nFecha: ${data.paymentMonth}\nToken: ${data.token}`,
+            qr: `Condominio Rinconada Shimul A.C.\nShimul ${data.houseId}\nConsumo de agua\nFecha: ${data.paymentMonth}\nToken: ${data.token}`,
             fit: 90,
             alignment: 'right'
           },
           {
-            text: `Xanic ${data.houseId}`,
+            text: `Shimul ${data.houseId}`,
             style: 'header',
             alignment: 'center',
             color: '#000000'
           },
           // {
-          //   text: 'Rinconada Xanic',
+          //   text: 'Rinconada Shimul',
           //   style: 'subheader',
           //   alignment: 'center',
           //   color: '#000000'
@@ -159,7 +159,7 @@ export const waterShimulReport = (data): TDocumentDefinitions => {
 
   },
   {
-    text: 'BANCO: BANCOMER \nNo DE CUENTA: 777777777 \nCLABE: 454545454545454545\nAclaraciones:',    
+    text: 'BANCO: SANTANDER \nNo DE CUENTA: 65507695866 \nCLABE: 014680655076958662\nAclaraciones:',    
     style: 'address',
     alignment: 'left',
     color: '#000000',
@@ -167,8 +167,8 @@ export const waterShimulReport = (data): TDocumentDefinitions => {
     
 },
   { 
-    text: 'xanic.aclaraciones@gmail.com', 
-    link: 'xanic.aclaraciones@gmail.com',
+    text: 'administracion@corporativomv.mx', 
+    link: 'administracion@corporativomv.mx',
     fontSize: 12,
     color: 'blue'
   },
