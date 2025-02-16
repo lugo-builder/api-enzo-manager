@@ -5,7 +5,7 @@ import { paymentHydraReport } from './templates/hydra/proof.payment.report';
 import { waterShimulReport } from './templates/shimul/water.report.template';
 import { currentPaymentsHydra } from './templates/hydra/payments/payment-october-disorder-2024';
 import { recibosHydra } from './templates/hydra/payments/recibos-hydra-report';
-import { reportShimul } from './templates/shimul/periods/shimul-period-november';
+import { reportShimul } from './templates/shimul/periods/shimul-period-diciembre';
 const fs = require('fs');
 import * as path from 'path';
 
@@ -130,7 +130,7 @@ fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
         }else{
           casaName = houseData.houseId;
         }
-         const folderPath = `CASA ${casaName}/01.- ENERO 2025`;
+         const folderPath = `CASA ${casaName}/02.- FEBRERO 2025`;
 
          const outputDir = path.resolve(__dirname, '..', folderPath);
           const outputFilePath = path.join(outputDir, fileName);
