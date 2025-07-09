@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
-import { paymentHydraReport } from './templates/hydra/proof.payment.report';
+//import { paymentHydraReport } from './templates/hydra/proof.payment.report';
+import { paymentHydraReport } from './templates/hydra/layout.payment.report';
 import { waterShimulReport } from './templates/shimul/water.report.template';
 import { currentPaymentsHydra } from './templates/hydra/payments/payment-october-disorder-2024';
-import { recibosHydra } from './templates/hydra/payments/recibos-hydra-report';
-import { reportShimul } from './templates/shimul/periods/shimul-period-diciembre';
+//import { recibosHydra } from './templates/hydra/payments/recibos-hydra-report';
+import { recibosHydra } from './templates/hydra/payments/recibos-junio-hydra-report';
+import { reportShimul } from './templates/shimul/periods/shimul-period-mayo';
 const fs = require('fs');
 import * as path from 'path';
 
@@ -130,7 +132,7 @@ fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
         }else{
           casaName = houseData.houseId;
         }
-         const folderPath = `CASA ${casaName}/02.- FEBRERO 2025`;
+         const folderPath = `CASA ${casaName}/07.- JULIO 2025`;
 
          const outputDir = path.resolve(__dirname, '..', folderPath);
           const outputFilePath = path.join(outputDir, fileName);
@@ -139,6 +141,61 @@ fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
             fs.mkdirSync(outputDir, { recursive: true });
           }
           let pdfDoc = printer.createPdfKitDocument(waterShimulReport(houseData));
+
+          const writeStream = fs.createWriteStream(outputFilePath);
+        pdfDoc.pipe(writeStream);
+        pdfDoc.end();
+
+        writeStream.on('finish', () => {
+          console.log('PDF generated and saved to:', outputFilePath);
+        });
+        
+        writeStream.on('error', (error) => {
+          console.error('Error while generating the PDF:', error);
+        });
+
+
+      
+    });
+    console.log('Final GeneratePDF');
+    
+    return 'This action generate pdf';
+  }
+
+  generateRecibos() {
+    console.log('Generar reportes Hydra');
+    
+    const PdfPrinter = require('pdfmake');
+    const printer = new PdfPrinter(fonts);
+    const fs = require('fs');
+
+
+
+    //TODO: Generar un arreglo con el reporte final
+    recibosHydra.forEach(houseData => {
+      
+        //houseData.color = houseData.type === 'redemption' ? 'red' : 'black';
+        houseData.token = this.generateFolio(houseData);
+        
+        let fileName = `${houseData.condo.toLowerCase()}_${houseData.houseId}_pago_interno_${houseData.paymentMonth.toLocaleLowerCase()}_${houseData.year}.pdf`;
+
+        //Generar carpetas
+        let houseNumber = parseInt(houseData.houseId);
+        let casaName = `00`;
+        if(houseNumber < 10){
+          casaName = `0${houseData.houseId}`;
+        }else{
+          casaName = houseData.houseId;
+        }
+         const folderPath = `HYDRA ${casaName}/06.- JUNIO 2025`;
+
+         const outputDir = path.resolve(__dirname, '..', folderPath);
+          const outputFilePath = path.join(outputDir, fileName);
+
+          if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+          }
+          let pdfDoc = printer.createPdfKitDocument(paymentHydraReport(houseData));
 
           const writeStream = fs.createWriteStream(outputFilePath);
         pdfDoc.pipe(writeStream);

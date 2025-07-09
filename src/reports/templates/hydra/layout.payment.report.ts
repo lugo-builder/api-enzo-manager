@@ -3,7 +3,9 @@ import { TDocumentDefinitions, Content, StyleDictionary } from 'pdfmake/interfac
 const president = 'Carlos Alahín Camacho';
 const logo: Content = {
   //image: 'src/assets/hydra_logo.jpg',
-  image: 'src/assets/hydra_logo_3.jpg',
+  //image: 'src/assets/hydra_logo_3.jpg',
+  image: 'src/assets/LogoHydraCondo.png',
+  //image: 'src/assets/LogoHydraBlack.png',
   //image: 'src/assets/hydra_logo_4.jpg',
   width: 70,
   margin:[30,10]
@@ -45,59 +47,63 @@ export const paymentHydraReport = (data): TDocumentDefinitions => {
     [
       //{ text: 'Consecutivo', style: 'tableHeader', fillColor: '#dddddd' },
       { text: 'Concepto', style: 'tableHeader', fillColor: '#dddddd' },
-      { text: 'Importe', style: 'tableHeader', fillColor: '#dddddd' }
+      { text: 'Monto', style: 'tableHeader', fillColor: '#dddddd' }
     ],
     [
       //{ text: '1', style: 'tableBody' },
       { text: 'Cuota ordinaria', style: 'tableBody' },
-      { text: data.ordinaryPayment, style: 'tableBody',alignment: 'right' }
+      { text: `$${data.ordinaryPayment}`, style: 'tableBody',alignment: 'right' }
     ],
     [
       //{ text: '2', style: 'tableBody' },
-      { text: 'Consumo de agua', style: 'tableBody' },
-      { text: data.waterPayment, style: 'tableBody',alignment: 'right' }
-    ],
-    [
-      //{ text: '3', style: 'tableBody' },
-      { text: 'Pago pendiente', style: 'tableBody' },
-      { text: data.pendingPayment, style: 'tableBody',alignment: 'right' }
-    ],
-    [
-      //{ text: '3', style: 'tableBody' },
-      { text: 'Sanciones', style: 'tableBody' },
-      { text: data.sanctionPayment, style: 'tableBody',alignment: 'right' }
+      { text: `Consumo de ${data.metersConsumed} m3 de agua  para el mes de ${data.periodOfWaterUse.toLocaleLowerCase()}`, style: 'tableBody' },
+      { text: `$${data.waterPayment}`, style: 'tableBody',alignment: 'right' }
     ]
   ];
-  if(data.sanctionPayment !=='0'){
-    sanctionTitle = 'Motivo de sanciones:';
-    sanctionDescription = data.sanctionDescription;
-  }
-  if(data.ordinaryPaymentDelay != '0'){
+  if(data.pendingPayment && data.pendingPayment !=='0'){
     dataBody.push([
       //{ text: '3', style: 'tableBody' },
-      { text: 'Cuota ordinaria acumulada', style: 'tableBody' },
-      { text: data.ordinaryPaymentDelay, style: 'tableBody',alignment: 'right' }
+      { text: 'Pago pendiente', style: 'tableBody' },
+      { text: `$${data.pendingPayment}`, style: 'tableBody',alignment: 'right' }
     ]);
   }
-  if(data.waterPaymentDelay != '0'){
+  if(data.sanctionPayment && data.sanctionPayment !=='0'){
     dataBody.push([
       //{ text: '3', style: 'tableBody' },
-      { text: 'Consumo de agua acumulada', style: 'tableBody' },
-      { text: data.waterPaymentDelay, style: 'tableBody',alignment: 'right' }
+      { text: 'Sanciones', style: 'tableBody' },
+      { text: `$${data.sanctionPayment}`, style: 'tableBody',alignment: 'right' }
     ]);
   }
-  if(data.sanctionPaymentDelay != '0'){
-    dataBody.push([
-      //{ text: '3', style: 'tableBody' },
-      { text: 'Sanciones acumuladas', style: 'tableBody' },
-      { text: data.sanctionPaymentDelay, style: 'tableBody',alignment: 'right' }
-    ]);
-    sanctionTitle = 'Motivo de sanciones:';
-    sanctionPaymentDelayDescription = data.sanctionPaymentDelayDescription;
-  }
+  // if(data.sanctionPayment !=='0'){
+  //   sanctionTitle = 'Motivo de sanciones:';
+  //   sanctionDescription = data.sanctionDescription;
+  // }
+  // if(data.ordinaryPaymentDelay != '0'){
+  //   dataBody.push([
+  //     //{ text: '3', style: 'tableBody' },
+  //     { text: 'Cuota ordinaria acumulada', style: 'tableBody' },
+  //     { text: data.ordinaryPaymentDelay, style: 'tableBody',alignment: 'right' }
+  //   ]);
+  // }
+  // if(data.waterPaymentDelay != '0'){
+  //   dataBody.push([
+  //     //{ text: '3', style: 'tableBody' },
+  //     { text: 'Consumo de agua acumulada', style: 'tableBody' },
+  //     { text: data.waterPaymentDelay, style: 'tableBody',alignment: 'right' }
+  //   ]);
+  // }
+  // if(data.sanctionPaymentDelay != '0'){
+  //   dataBody.push([
+  //     //{ text: '3', style: 'tableBody' },
+  //     { text: 'Sanciones acumuladas', style: 'tableBody' },
+  //     { text: data.sanctionPaymentDelay, style: 'tableBody',alignment: 'right' }
+  //   ]);
+  //   sanctionTitle = 'Motivo de sanciones:';
+  //   sanctionPaymentDelayDescription = data.sanctionPaymentDelayDescription;
+  // }
     return {
         header:{
-            text: `Comprobante de pago`,
+            text: `Comprobante`,
             alignment: 'right',
             margin:[10,10]
         },
@@ -142,15 +148,9 @@ export const paymentHydraReport = (data): TDocumentDefinitions => {
             color: '#000000'
           },
           {
-            text: 'Condominio Hydra',
-            style: 'subheader',
-            alignment: 'center',
-            color: '#000000'
-          },
-          {
             columns:[
                 {
-                    text:'Departamento |\nAño |\nPeriodo pagado |',
+                    text:'Departamento ||\nAño ||\nMes de pago ||',
                     alignment: 'right',
                     margin:[5, 15, 5, 15],
                     width: '85%'
@@ -178,23 +178,49 @@ export const paymentHydraReport = (data): TDocumentDefinitions => {
           {
             columns:[
                 {
-                    text:'Total pagado |',
+                    text:'Total a pagar || ',
                     alignment: 'right',
-                    style: 'subheader',
+                    style: 'header',
                     margin:[2, 20, 0, 2],
                     width: '85%'
                 },
                 {
-                    text:`${data.total}`,
+                    text:`$${data.total}`,
                     alignment: 'left', 
-                    style: 'subheader',
+                    style: 'header',
                     margin:[2, 20, 0, 2],
                     width: '15%'
                 }
             ]
           },
           {  
-            text: 'NOTAS:',
+            text: 'Comentarios:',
+            style: 'address',
+            alignment: 'left',
+            color: '#000000',
+            bold: true
+        },
+        {
+        ul: [
+        { text: `${data.comments}`, color: data.color },
+        ]
+        },
+        {  
+          text: `${sanctionTitle}`,
+          style: 'address',
+          alignment: 'left',
+          color: '#000000',
+          bold: true
+        },
+        {
+          ul: [
+            `${sanctionDescription}`,
+            `${sanctionPaymentDelayDescription}`,
+          ]
+        }
+          ,
+          {  
+            text: 'Notas:',
             style: 'address',
             alignment: 'left',
             color: '#000000',
@@ -203,23 +229,10 @@ export const paymentHydraReport = (data): TDocumentDefinitions => {
   {
     ul: [
       'El pago de este recibo no libera de adeudos anteriores.',
-      'No es válida sin el token de seguridad autorizado.',
-      { text: `${data.comments}`, color: data.color },
+      'No es válida sin el token de seguridad autorizado.'
     ]
   },
-{  
-  text: `${sanctionTitle}`,
-  style: 'address',
-  alignment: 'left',
-  color: '#000000',
-  bold: true
-},
-{
-  ul: [
-    `${sanctionDescription}`,
-    `${sanctionPaymentDelayDescription}`,
-  ]
-}
+  
         ],     
         styles: styles
       };

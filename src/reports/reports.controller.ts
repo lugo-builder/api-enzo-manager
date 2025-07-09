@@ -36,7 +36,8 @@ export class ReportsController {
   @Get('report')
   async generateReport(@Query('name') name: string) {
     const data = { name };
-    return await this.reportsService.generatePdf();
+    //return await this.reportsService.generatePdf();
+    return await this.reportsService.generateRecibos();
   }
 
   @Get('filter')
