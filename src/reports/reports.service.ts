@@ -6,8 +6,8 @@ import { paymentHydraReport } from './templates/hydra/layout.payment.report';
 import { waterShimulReport } from './templates/shimul/water.report.template';
 import { currentPaymentsHydra } from './templates/hydra/payments/payment-october-disorder-2024';
 //import { recibosHydra } from './templates/hydra/payments/recibos-hydra-report';
-import { recibosHydra } from './templates/hydra/payments/recibos-junio-hydra-report';
-import { reportShimul } from './templates/shimul/periods/shimul-period-mayo';
+import { recibosHydra } from './templates/hydra/payments/recibos-julio-hydra-report';
+import { reportShimul } from './templates/shimul/periods/shimul-period-november_2025';
 const fs = require('fs');
 import * as path from 'path';
 
@@ -132,7 +132,7 @@ fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
         }else{
           casaName = houseData.houseId;
         }
-         const folderPath = `CASA ${casaName}/07.- JULIO 2025`;
+         const folderPath = `CASA ${casaName}/01.- ENERO 2026`;
 
          const outputDir = path.resolve(__dirname, '..', folderPath);
           const outputFilePath = path.join(outputDir, fileName);
@@ -187,7 +187,7 @@ fs.writeFile('oct_sorted_payments.json', jsonContent, 'utf8', (err) => {
         }else{
           casaName = houseData.houseId;
         }
-         const folderPath = `HYDRA ${casaName}/06.- JUNIO 2025`;
+         const folderPath = `HYDRA ${casaName}/07.- JULIO 2025`;
 
          const outputDir = path.resolve(__dirname, '..', folderPath);
           const outputFilePath = path.join(outputDir, fileName);
